@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My Website Projects</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            padding: 40px;
+            max-width: 900px;
+            margin: auto;
+        }
+        a {
+            display: block;
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            text-decoration: none;
+            color: #2563eb;
+            box-shadow: 0 2px 8px #0001;
+        }
+        a:hover {
+            background: #e8efff;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>My Website Projects</h1>
+    <div id="projects">Loading projects...</div>
+
+    <script>
+        const username = "ivanauskasdonatas-bot";
+        const repo = "learning_websites";
+        const api = `https://api.github.com/repos/${username}/${repo}/contents`;
+
+        async function loadProjects() {
+            const container = document.getElementById("projects");
+
+            try {
+                const response = await fetch(api);
+                if (!response.ok) throw new Error("API error");
+
+                const files = await response.json();
+                container.textContent = "";
+
+                for (const file of files) {
+                    if (file.type !== "dir" || file.name.startsWith(".")) continue;
+
+                    const contents = await fetch(file.url);
+                    if (!contents.ok) continue;
+
+                    const items = await contents.json();
+
+                    if (items.some(item => item.name === "index.html")) {
+                        const link = document.createElement("a");
+                        link.href = `./${encodeURIComponent(file.name)}/`;
+                        link.textContent = file.name.replace(/_/g, " ");
+                        container.appendChild(link);
+                    }
+                }
+
+                if (!container.children.length) {
+                    container.textContent = "No websites found.";
+                }
+            } catch (error) {
+                container.textContent = "Unable to load projects.";
+            }
+        }
+
+        loadProjects();
+    </script>
+
+</body>
+</html>

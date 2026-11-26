@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sample | Contacts</title>
+  <link rel="stylesheet" href="design.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="logo" href="main.html">sample</a>
+    <nav aria-label="Main navigation">
+      <a href="Services.html">Services</a>
+      <a aria-current="page" href="Contacts.html">Contacts</a>
+    </nav>
+  </header>
+
+  <main class="page-content">
+    <section class="contact-card card">
+      <p class="eyebrow">Get in touch</p>
+      <h1>Contact us</h1>
+      <form id="contact-form">
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" placeholder="Your name" required>
+
+        <label for="phone">Phone</label>
+        <input id="phone" name="phone" type="tel" placeholder="Your phone number" required>
+
+        <label for="email">@ Email</label>
+        <input id="email" name="email" type="email" placeholder="you@example.com" required>
+
+        <label for="comments">Comments</label>
+        <textarea id="comments" name="comments" rows="5" placeholder="Write your comments here" required></textarea>
+
+        <button type="submit">Send message</button>
+        <p id="form-message" class="form-message" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <script src="action.js"></script>
+</body>
+</html>
